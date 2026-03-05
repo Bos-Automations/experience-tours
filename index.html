@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Strateres Design Studio — Experience Tours | Boston Automations</title>
+  <title>Strateres Design Studio â Lighting and Technology Experience Tour | Boston Automations</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
@@ -432,7 +432,7 @@
   <header class="header">
     <div class="header-inner">
       <img src="https://bostonautomations.com/wp-content/uploads/2020/03/ba-logo-svg.svg" alt="Boston Automations" class="header-logo">
-      <div class="header-badge">Experience Tours</div>
+      <div class="header-badge">Experience Tour</div>
     </div>
   </header>
 
@@ -440,7 +440,7 @@
   <section class="hero">
     <div class="hero-content">
       <div class="hero-eyebrow">Strateres Design Studio</div>
-      <h1>Experience <span>Tours</span></h1>
+      <h1>Lighting and Technology <span>Experience Tour</span></h1>
       <p class="hero-sub">
         Explore cutting-edge smart home technology in a private, hands-on tour of the Strateres Design Studio showroom.
       </p>
@@ -485,7 +485,7 @@
 
   <script>
     // ============================================================
-    // AVAILABILITY DATA — Updated by scheduled task 3x daily
+    // AVAILABILITY DATA â Updated by scheduled task 3x daily
     // Last updated: 2026-03-05T13:00:00-05:00
     // ============================================================
     const availabilityData = {
@@ -550,11 +550,11 @@
       const d = new Date(dateStr + 'T12:00:00');
       const day = d.getDate();
       const month = d.toLocaleDateString('en-US', { month: 'long' });
-      if (day <= 7) return month + ' 1-7';
-      if (day <= 14) return month + ' 8-14';
-      if (day <= 21) return month + ' 15-21';
-      if (day <= 28) return month + ' 22-28';
-      return month + ' 29-31';
+      if (day <= 7) return `${month} 1â7`;
+      if (day <= 14) return `${month} 8â14`;
+      if (day <= 21) return `${month} 15â21`;
+      if (day <= 28) return `${month} 22â28`;
+      return `${month} 29â31`;
     }
 
     function formatDate(dateStr) {
@@ -636,8 +636,8 @@
       let html = '';
 
       for (const [weekLabel, weekDates] of Object.entries(weeks)) {
-        html += '<div class="week-group">';
-        html += '<div class="week-label">Week of ' + weekLabel + '</div>';
+        html += `<div class="week-group">`;
+        html += `<div class="week-label">Week of ${weekLabel}</div>`;
 
         weekDates.forEach(date => {
           const info = merged[date];
@@ -649,63 +649,66 @@
           let slotSummary = '';
           if (currentFilter === 'all') {
             const parts = [];
-            if (totalSlots90 > 0) parts.push(totalSlots90 + ' x 90 min');
-            if (totalSlots120 > 0) parts.push(totalSlots120 + ' x 120 min');
-            slotSummary = parts.join(' &bull; ');
+            if (totalSlots90 > 0) parts.push(`${totalSlots90} Ã 90 min`);
+            if (totalSlots120 > 0) parts.push(`${totalSlots120} Ã 120 min`);
+            slotSummary = parts.join(' &nbsp;&bull;&nbsp; ');
           } else if (currentFilter === '90') {
-            slotSummary = totalSlots90 + ' time slot' + (totalSlots90 !== 1 ? 's' : '') + ' available';
+            slotSummary = `${totalSlots90} time slot${totalSlots90 !== 1 ? 's' : ''} available`;
           } else {
-            slotSummary = totalSlots120 + ' time slot' + (totalSlots120 !== 1 ? 's' : '') + ' available';
+            slotSummary = `${totalSlots120} time slot${totalSlots120 !== 1 ? 's' : ''} available`;
           }
 
-          html += '<div class="day-card">';
-          html += '<div class="day-header" onclick="toggleDay(\'' + dayId + '\')">';
-          html += '<div class="day-info">';
-          html += '<div class="day-date-box">';
-          html += '<span class="day-abbr">' + getDayAbbr(info.day) + '</span>';
-          html += '<span class="day-num">' + getDayNum(date) + '</span>';
-          html += '</div>';
-          html += '<div class="day-text">';
-          html += '<div class="day-full-date">' + formatDate(date) + '</div>';
-          html += '<div class="day-slot-count">' + slotSummary + '</div>';
-          html += '</div></div>';
-          html += '<div class="day-toggle ' + (isOpen ? 'open' : '') + '">';
-          html += '<svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>';
-          html += '</div></div>';
-          html += '<div class="day-slots ' + (isOpen ? 'open' : '') + '">';
+          html += `
+            <div class="day-card">
+              <div class="day-header" onclick="toggleDay('${dayId}')">
+                <div class="day-info">
+                  <div class="day-date-box">
+                    <span class="day-abbr">${getDayAbbr(info.day)}</span>
+                    <span class="day-num">${getDayNum(date)}</span>
+                  </div>
+                  <div class="day-text">
+                    <div class="day-full-date">${formatDate(date)}</div>
+                    <div class="day-slot-count">${slotSummary}</div>
+                  </div>
+                </div>
+                <div class="day-toggle ${isOpen ? 'open' : ''}">
+                  <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
+                </div>
+              </div>
+              <div class="day-slots ${isOpen ? 'open' : ''}">`;
 
           if (currentFilter === 'all' || currentFilter === '90') {
             if (info.slots90.length > 0) {
-              html += '<div style="margin-bottom: ' + (info.slots120.length > 0 ? '16px' : '0') + '">';
-              html += '<div style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: var(--ba-medium-gray); margin-bottom: 8px;">90-Minute Tour</div>';
-              html += '<div class="slot-legend"><span><span class="legend-dot morning"></span>Morning</span><span><span class="legend-dot afternoon"></span>Afternoon</span></div>';
-              html += '<div class="slots-grid">';
+              html += `<div style="margin-bottom: ${info.slots120.length > 0 ? '16px' : '0'}">`;
+              html += `<div style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: var(--ba-medium-gray); margin-bottom: 8px;">90-Minute Tour</div>`;
+              html += `<div class="slot-legend"><span><span class="legend-dot morning"></span>Morning</span><span><span class="legend-dot afternoon"></span>Afternoon</span></div>`;
+              html += `<div class="slots-grid">`;
               info.slots90.forEach(slot => {
                 const cls = isMorning(slot) ? 'morning' : 'afternoon';
-                html += '<a href="' + bookingLinks['90'] + '?month=2026-03&date=' + date + '" target="_blank" class="slot-chip ' + cls + '" title="Book 90-min tour at ' + slot + '">' + slot + '</a>';
+                html += `<a href="${bookingLinks['90']}?month=2026-03&date=${date}" target="_blank" class="slot-chip ${cls}" title="Book 90-min tour at ${slot}">${slot}</a>`;
               });
-              html += '</div></div>';
+              html += `</div></div>`;
             }
           }
 
           if (currentFilter === 'all' || currentFilter === '120') {
             if (info.slots120.length > 0) {
-              html += '<div>';
-              html += '<div style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: var(--ba-medium-gray); margin-bottom: 8px;">120-Minute Tour</div>';
-              html += '<div class="slot-legend"><span><span class="legend-dot morning"></span>Morning</span><span><span class="legend-dot afternoon"></span>Afternoon</span></div>';
-              html += '<div class="slots-grid">';
+              html += `<div>`;
+              html += `<div style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: var(--ba-medium-gray); margin-bottom: 8px;">120-Minute Tour</div>`;
+              html += `<div class="slot-legend"><span><span class="legend-dot morning"></span>Morning</span><span><span class="legend-dot afternoon"></span>Afternoon</span></div>`;
+              html += `<div class="slots-grid">`;
               info.slots120.forEach(slot => {
                 const cls = isMorning(slot) ? 'morning' : 'afternoon';
-                html += '<a href="' + bookingLinks['120'] + '?month=2026-03&date=' + date + '" target="_blank" class="slot-chip ' + cls + '" title="Book 120-min tour at ' + slot + '">' + slot + '</a>';
+                html += `<a href="${bookingLinks['120']}?month=2026-03&date=${date}" target="_blank" class="slot-chip ${cls}" title="Book 120-min tour at ${slot}">${slot}</a>`;
               });
-              html += '</div></div>';
+              html += `</div></div>`;
             }
           }
 
-          html += '</div></div>';
+          html += `</div></div>`;
         });
 
-        html += '</div>';
+        html += `</div>`;
       }
 
       container.innerHTML = html;
@@ -727,3 +730,4 @@
   </script>
 </body>
 </html>
+
